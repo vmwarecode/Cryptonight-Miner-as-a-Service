@@ -1,0 +1,187 @@
+id: CryptoNightMiner
+name: CryptoNight Miner
+description: ''
+status: PUBLISHED
+properties:
+  _debug_deployment:
+    default: 'true'
+    required: false
+    secured: false
+    visible: false
+components:
+  Amazon_EC2_Machine_1:
+    type: Infrastructure.CatalogItem.Machine.Cloud.AmazonEC2
+    data:
+      _cluster:
+        default: 1
+        max: 10
+        min: 1
+      amazon_image:
+        fixed:
+          id: ami-1f799b7d
+          label: ami-1f799b7d
+      blueprint_type:
+        fixed: '1'
+      cpu:
+        default: 1
+        max: 128
+        min: 1
+      display_location:
+        fixed: false
+      ebs_storage: {}
+      enable_amazon_network_options: false
+      instance_type: t2.micro
+      instance_types:
+        fixed:
+        - id: t2.micro
+          label: t2 - Micro Instance
+        - id: t2.small
+          label: t2 - Small Instance
+        - id: t2.medium
+          label: t2 - Medium Instance
+        - id: m3.medium
+          label: m3 - Medium Instance
+        - id: m3.large
+          label: m3 - Large Instance
+        - id: m3.xlarge
+          label: m3 - Extra Large Instance
+        - id: m3.2xlarge
+          label: m3 - Double Extra Large Instance
+        - id: c3.large
+          label: c3 - Compute Optimized Large Instance
+        - id: c3.xlarge
+          label: c3 - Compute Optimized Extra Large Instance
+        - id: c3.2xlarge
+          label: c3 - Compute Optimized Double Extra Large Instance
+        - id: c3.4xlarge
+          label: c3 - Compute Optimized Quadruple Extra Large Instance
+        - id: c3.8xlarge
+          label: c3 - Compute Optimized Octuple Extra Large Instance
+        - id: g2.2xlarge
+          label: g2 - GPU Double Extra Large instance
+        - id: r3.large
+          label: r3 - Memory Optimized Large instance
+        - id: r3.xlarge
+          label: r3 - Memory Optimized Extra Large instance
+        - id: r3.2xlarge
+          label: r3 - Memory Optimized Double Extra Large instance
+        - id: r3.4xlarge
+          label: r3 - Memory Optimized Quadruple Extra Larg instancee
+        - id: r3.8xlarge
+          label: r3 - Memory Optimized Octuple Extra Large instance
+        - id: i2.xlarge
+          label: i2 - Storage Optimized Extra Large instance
+        - id: i2.2xlarge
+          label: i2 - Storage Optimized Double Extra Large instance
+        - id: i2.4xlarge
+          label: i2 - Storage Optimized Quadruple Extra Large instance
+        - id: i2.8xlarge
+          label: i2 - Storage Optimized Octuple Extra Large instance
+        - id: hs1.8xlarge
+          label: hs1 - High Storage Density Octuple Extra Large instance
+        - id: t1.micro
+          label: t1 - Micro Instance
+        - id: t2.nano
+          label: t2 - Nano Instance
+        - id: t2.large
+          label: t2 - Large Instance
+        - id: t2.xlarge
+          label: t2 - Extra Large Instance
+        - id: t2.2xlarge
+          label: t2 - Double Extra Large Instance
+        - id: m4.large
+          label: m4 - Large Instance
+        - id: m4.xlarge
+          label: m4 - Extra Large Instance
+        - id: m4.2xlarge
+          label: m4 - Double Extra Large Instance
+        - id: m4.4xlarge
+          label: m4 - Quadruple Extra Large Instance
+        - id: m4.10xlarge
+          label: m4 - Decuple Extra Large Instance
+        - id: m4.16xlarge
+          label: m4 - Sexdecuple Extra Large Instance
+        - id: c4.large
+          label: c4 - Compute Optimized Large Instance
+        - id: c4.xlarge
+          label: c4 - Compute Optimized Extra Large Instance
+        - id: c4.2xlarge
+          label: c4 - Compute Optimized Double Extra Large Instance
+        - id: c4.4xlarge
+          label: c4 - Compute Optimized Quadruple Extra Large Instance
+        - id: c4.8xlarge
+          label: c4 - Compute Optimized Octuple Extra Large Instance
+        - id: x1.32xlarge
+          label: x1 - Memory Optimized Duotrigintuple Large Instance
+        - id: x1.16xlarge
+          label: x1 - Memory Optimized Sexdecuple Large Instance
+        - id: r4.large
+          label: r4 - Memory Optimized Large Instance
+        - id: r4.xlarge
+          label: r4 - Memory Optimized Extra Large Instance
+        - id: r4.2xlarge
+          label: r4 - Memory Optimized Double Extra Large Instance
+        - id: r4.4xlarge
+          label: r4 - Memory Optimized Quadruple Extra Large Instance
+        - id: r4.8xlarge
+          label: r4 - Memory Optimized Octuple Extra Large Instance
+        - id: r4.16xlarge
+          label: r4 - Memory Optimized Sexdecuple Extra Large Instance
+        - id: p2.xlarge
+          label: p2 - GPU Extra Large Instance
+        - id: p2.8xlarge
+          label: p2 - GPU Octuple Extra Large Instance
+        - id: p2.16xlarge
+          label: p2 - GPU Sexdecuple Extra Large Instance
+        - id: g2.8xlarge
+          label: g2 - GPU Octuple Extra Large Instance
+        - id: d2.xlarge
+          label: d2 - Storage Optimized Extra Large Instance
+        - id: d2.2xlarge
+          label: d2 - Storage Optimized Double Extra Large Instance
+        - id: d2.4xlarge
+          label: d2 - Storage Optimized Quadruple Extra Large Instance
+        - id: d2.8xlarge
+          label: d2 - Storage Optimized Octuple Extra Large Instance
+      key_pair: '0'
+      memory:
+        default: 512
+        max: 1998848
+        min: 512
+      osfamily:
+        default: LINUX
+        required: false
+        secured: false
+        visible: false
+      provisioning_workflow:
+        fixed:
+          id: CloudProvisioningWorkflow
+          label: CloudProvisioningWorkflow
+      reservation_policy:
+        id: Virtualiseme - AWS VMware - AP SouthEast 2
+        label: Virtualiseme - AWS VMware - AP SouthEast 2
+      storage:
+        default: 0
+        max: 49152
+        min: 0
+  CryptoNight_Miner_1:
+    type: Software.CryptoNightMiner
+    data:
+      host:
+        fixed: ${_resource~Amazon_EC2_Machine_1}
+      pool:
+        default: etn-au1.nanopool.org:13333
+        required: true
+        visible: true
+      wallet:
+        default: etnjzmh7Lb4KRGMNQRkC9r2f82QNoz8VqX1AkCWFuR8D8cCjLD1PLRS9bpxiH9H96LNP6qjd7ULa4WE7GYyJfeae4eVUALo5og
+        required: true
+        visible: true
+      worker:
+        default: vraworker1
+        editable: true
+        required: true
+        visible: true
+layout:
+  Amazon_EC2_Machine_1: 0,0
+  CryptoNight_Miner_1: 0,0

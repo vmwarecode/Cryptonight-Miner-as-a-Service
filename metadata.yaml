@@ -1,0 +1,12 @@
+name: "auto-generated-pkg-0e28e7b3-f190-4e95-a550-8413be37b2c4"
+productVersion: "7.3.0-SNAPSHOT"
+data:
+- locator: "composite-blueprint/CryptoNightMiner.yaml"
+  name: "CryptoNight Miner"
+  description: "CryptoNight Miner"
+  dependencies:
+  - "software-component/Software.CryptoNightMiner.yaml"
+- locator: "software-component/Software.CryptoNightMiner.yaml"
+  name: "CryptoNight Miner"
+  description: ""
+exportTime: "2018-01-16T05:15:07.061Z"

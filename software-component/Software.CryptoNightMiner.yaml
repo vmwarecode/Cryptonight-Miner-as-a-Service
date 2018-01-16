@@ -1,0 +1,138 @@
+'@type': "SoftwareComponentType"
+createdDate: "2018-01-09T00:09:52.772Z"
+lastUpdated: "2018-01-12T10:13:31.936Z"
+id: "Software.CryptoNightMiner"
+name: "CryptoNight Miner"
+description: ""
+publishStatus: "PUBLISHED"
+publishStatusName: "Published"
+schema:
+  fields:
+  - id: "wallet"
+    label: "wallet"
+    description: "wallet address"
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "defaultValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "etnjzmh7Lb4KRGMNQRkC9r2f82QNoz8VqX1AkCWFuR8D8cCjLD1PLRS9bpxiH9H96LNP6qjd7ULa4WE7GYyJfeae4eVUALo5og"
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+  - id: "pool"
+    label: "pool"
+    description: "Mining Pool and port"
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "defaultValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "etn-au1.nanopool.org:13333"
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+  - id: "host"
+    label: "Container"
+    description: ""
+    dataType:
+      type: "ref"
+      componentTypeId: "com.vmware.csp.iaas.blueprint.service"
+      classId: "Infrastructure.Machine.Schema"
+      label: "Machine"
+    state:
+      dependencies: []
+      facets:
+      - type: "visible"
+        value:
+          type: "constantClause"
+          value:
+            type: "boolean"
+            value: false
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "internal"
+        value:
+          type: "constantClause"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+  - id: "worker"
+    label: "worker"
+    description: "worker"
+    dataType:
+      type: "primitive"
+      typeId: "STRING"
+    state:
+      dependencies: []
+      facets:
+      - type: "defaultValue"
+        value:
+          type: "constant"
+          value:
+            type: "string"
+            value: "vraworker1"
+      - type: "mandatory"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+      - type: "editable"
+        value:
+          type: "constant"
+          value:
+            type: "boolean"
+            value: true
+    isMultiValued: false
+containerFieldId: "host"
+lifecycleTasks:
+- createdDate: "2018-01-09T00:09:52.774Z"
+  lastUpdated: "2018-01-12T10:19:12.866Z"
+  script:
+    scriptContent: "cd /tmp\nsudo yum -y install epel-release\nsudo yum -y remove\
+      \ cmake\nsudo yum -y install centos-release-scl git screen nano\nsudo yum -y\
+      \ install cmake3 devtoolset-4-gcc* hwloc-devel libmicrohttpd-devel openssl-devel\
+      \ make\nsudo yum -y install gcc\nsudo scl enable devtoolset-4 bash\nsudo git\
+      \ clone https://github.com/fireice-uk/xmr-stak-cpu.git\ncd xmr-stak-cpu\n\n\
+      sudo cmake3 -DCMAKE_CXX_COMPILER=/opt/rh/devtoolset-4/root/usr/bin/g++ .\n#sudo\
+      \ cmake3 .\nsudo make\n\nsudo cp bin/xmr-stak-cpu ./xmr-stak-cpu\nsudo ./xmr-stak-cpu\
+      \ >> firstrun.txt\n\n\nsudo chmod +x xmr-stak-cpu\nsudo sed -i \"s/pool.usxmrpool.com:3333/${pool}/g\"\
+      \ config.txt\nsudo sed -i \"s/wallet_address\\\" : \\\"\\\"/wallet_address\\\
+      \" : \\\"${wallet}.${worker}\\\"/g\" config.txt\nsudo sed -i \"s/pool_password\\\
+      \" : \\\"\\\"/pool_password\\\" : \\\"x\\\"/g\" config.txt\n\nsudo awk '/BEGIN/,/END/'\
+      \ firstrun.txt\nsudo sed -i '/cpu_threads_conf/d' ./config.txt\nsudo sed -i\
+      \ '0,/null,/ s///' config.txt\nsudo sed -i '/Copy&Paste BEGIN /d' ./firstrun.txt\n\
+      sudo sed -i '/Copy&Paste END /d' ./firstrun.txt\nsudo tail -n +5 firstrun.txt\
+      \ >> config.txt\n\nsudo sysctl -w vm.nr_hugepages=128\nsudo nohup ./xmr-stak-cpu\
+      \ > nohup2.out 2>&1&\n\n"
+    isRebootAfter: false
+    scriptTypeId: "Bash"
+  taskDescriptorRef:
+    id: "INSTALL"
+    label: "Install"
